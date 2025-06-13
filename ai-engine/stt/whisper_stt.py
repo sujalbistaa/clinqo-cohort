@@ -1,5 +1,5 @@
 """
-Whisper Speech-to-Text Module for Medical Clinic Assistant
+Whisper Speech-to-Text Module for Clinqo-June_Cohort_by Sujal
 
 This module provides audio transcription functionality using OpenAI's Whisper model.
 It takes audio files (.wav or .mp3) and converts them to text transcriptions.
