@@ -1,4 +1,4 @@
-Clinic AI MCP Hackathon
+Clinqo MCP Hackathon
 
 
 Smart AI assistant backend for streamlined clinic management and doctor support
