@@ -27,22 +27,8 @@ Database	PostgreSQL / SQLite (your choice)
 Hosting	Render / Railway
 📁 Project Structure
 
-clinic-ai-mcp-hackathon/
-├── ai-engine/
-│   ├── stt/
-│   │   └── whisper_stt.py        # Voice transcription module
-│   ├── nlp/
-│   │   └── entity_extractor.py   # Entity extraction (age, gender, symptoms, duration)
-│   └── prescription/
-│       └── ai_prescription.py    # AI-driven prescription suggestion (stub)
-├── backend/
-│   ├── main.py                   # FastAPI server with endpoints
-│   ├── models.py                 # Pydantic models & DB schema
-│   └── websocket.py              # WebSocket real-time sync
-├── test-dataset/
-│   └── audio.mp3                 # Sample audio files for testing
-├── README.md
-└── requirements.txt              # Python dependencies
+
+
 🛠️ Setup & Run Locally
 
 Clone repo:
