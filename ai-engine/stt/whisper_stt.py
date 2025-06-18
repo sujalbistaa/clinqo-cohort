@@ -27,7 +27,7 @@ class WhisperTranscriptionError(Exception):
     pass
 
 
-def transcribe_audio(file_path: str, model_name: str = "base") -> str:
+def transcribe_audio(file_path: str, model_name: str = "base", save_to_file: bool = False, output_file: str = None) -> str:
     """
     Transcribe audio file to text using OpenAI Whisper.
     
@@ -35,6 +35,8 @@ def transcribe_audio(file_path: str, model_name: str = "base") -> str:
         file_path (str): Path to the audio file (.wav or .mp3)
         model_name (str): Whisper model to use (tiny, base, small, medium, large)
                          Default is 'base' for good balance of speed and accuracy
+        save_to_file (bool): Whether to save transcription to a text file
+        output_file (str): Custom output file path. If None, auto-generates filename
     
     Returns:
         str: Transcribed text from the audio file
@@ -83,6 +85,24 @@ def transcribe_audio(file_path: str, model_name: str = "base") -> str:
             return ""
         
         logger.info(f"Transcription completed successfully. Text length: {len(transcribed_text)} characters")
+        
+        # Save to file if requested
+        if save_to_file:
+            if output_file is None:
+                # Auto-generate filename based on input file
+                output_file = file_path.with_suffix('.txt')
+            else:
+                output_file = Path(output_file)
+            
+            try:
+                with open(output_file, 'w', encoding='utf-8') as f:
+                    f.write(transcribed_text)
+                logger.info(f"Transcription saved to: {output_file}")
+                print(f"Transcription saved to: {output_file}")
+            except Exception as e:
+                logger.error(f"Failed to save transcription to file: {e}")
+                print(f"Warning: Failed to save to file: {e}")
+        
         return transcribed_text
         
     except Exception as e:
@@ -155,13 +175,16 @@ def get_available_models() -> list:
 # Example usage and testing
 if __name__ == "__main__":
     # Example usage
-    sample_file = "/Users/sujalbist/clinqo-cohort/ai-engine/test-dataset/audio.mp3"  # Replace with actual file path
+    sample_file = "/Users/sujalbist/clinqo-cohort/ai-engine/test-dataset/test_audio_2.mp3"  # Replace with actual file path
     
     try:
-        # Basic transcription
-        text = transcribe_audio(sample_file)
+        # Basic transcription and save to file
+        text = transcribe_audio(sample_file, save_to_file=True)
         print("Transcription:")
         print(text)
+        
+        # Alternative: Save to custom file location
+        # text = transcribe_audio(sample_file, save_to_file=True, output_file="my_transcription.txt")
         
         # Detailed transcription with metadata
         detailed_result = transcribe_audio_with_metadata(sample_file)
